@@ -1,10 +1,10 @@
-package com.genug.todo1;
+package com.genug.todo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Todo1ApplicationTests {
+class TodoApplicationTests {
 
     @Test
     void contextLoads() {

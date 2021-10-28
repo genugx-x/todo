@@ -1,13 +1,13 @@
-package com.genug.todo1;
+package com.genug.todo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Todo1Application {
+public class TodoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Todo1Application.class, args);
+        SpringApplication.run(TodoApplication.class, args);
     }
 
 }
