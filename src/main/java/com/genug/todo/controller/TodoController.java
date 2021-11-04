@@ -72,9 +72,8 @@ public class TodoController {
             @AuthenticationPrincipal String userId,
             @RequestBody TodoDto dto) {
         try {
-            String temporaryUserId = "temporary-user";
             TodoEntity entity = TodoDto.toEntity(dto);
-            entity.setUserId(temporaryUserId);
+            entity.setUserId(userId);
             List<TodoEntity> entities = todoService.delete(entity);
             List<TodoDto> dtos = entities.stream().map(TodoDto::new).collect(Collectors.toList());
             ResponseDto<TodoDto> response = ResponseDto.<TodoDto>builder().data(dtos).build();
