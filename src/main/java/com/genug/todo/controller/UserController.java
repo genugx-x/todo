@@ -7,7 +7,10 @@ import com.genug.todo.security.TokenProvider;
 import com.genug.todo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,8 @@ public class UserController {
 
     @Autowired
     private TokenProvider tokenProvider;
+
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDto userDto) {
@@ -51,7 +56,8 @@ public class UserController {
     public ResponseEntity<?> authenticate(@RequestBody UserDto userDto) {
         UserEntity user = userService.getByCredentials(
                 userDto.getEmail(),
-                userDto.getPassword());
+                userDto.getPassword(),
+                passwordEncoder);
         if (user != null) {
             final String token = tokenProvider.create(user); // 토큰 생성
             final UserDto responseUserDto = UserDto.builder()
